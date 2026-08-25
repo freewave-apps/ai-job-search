@@ -250,6 +250,13 @@ class ValidateDataShapeTests(ValidateDataTests):
         data = {"companies": [{"company": "Acme", "categories": {"eng": "not_a_dict"}}]}
         self.assert_invalid_data(data, "must be an object with 'count' and/or 'index'")
 
+    def test_non_numeric_index_baseline_rejected(self):
+        data = {
+            "metadata": {"index_baseline": "N/A"},
+            "companies": [{"company": "Acme"}],
+        }
+        self.assert_invalid_data(data, "'metadata.index_baseline' must be a number when provided")
+
     def test_non_numeric_count_rejected(self):
         data = {
             "companies": [
