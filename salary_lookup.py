@@ -69,6 +69,10 @@ def collect_validation_issues(data):
     metadata = data.get("metadata", {})
     if metadata is not None and not isinstance(metadata, dict):
         errors.append("'metadata' must be an object when provided")
+    elif isinstance(metadata, dict):
+        baseline = metadata.get("index_baseline")
+        if baseline is not None and not isinstance(baseline, (int, float)):
+            errors.append("'metadata.index_baseline' must be a number when provided")
 
     companies = data.get("companies")
     if not isinstance(companies, list):
